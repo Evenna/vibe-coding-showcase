@@ -650,13 +650,37 @@ slide('outro', function(el) {
     <div class="cover-grid"></div>
     <div class="glow" style="width:500px;height:360px;background:rgba(10,132,255,.07);top:10%;left:20%"></div>
     <div class="glow" style="width:360px;height:260px;background:rgba(191,90,242,.06);bottom:15%;right:10%"></div>
-    <p class="outro-q">
-      工具已经准备好了。<br>
-      <strong>门槛只剩一个好想法。</strong>
-    </p>
-    <div class="outro-foot">
-      Claude · Cursor · Bolt · v0 · Lovable · Replit<br>
-      <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,.15);letter-spacing:.14em">— describe. vibe. ship. —</span>
+
+    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:32px;padding:0 40px;text-align:center;position:relative;z-index:2;">
+
+      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.22em;color:rgba(255,255,255,.2);text-transform:uppercase;">11 · Follow Us</div>
+
+      <p style="font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(28px,4vw,52px);font-weight:300;color:rgba(245,245,247,.92);line-height:1.35;margin:0;max-width:760px;">
+        你刚才看到的每一个，<br>
+        <em style="font-style:italic;color:rgba(245,245,247,.6);">都是从一句话开始的。</em>
+      </p>
+
+      <p style="font-size:clamp(14px,1.6vw,18px);color:rgba(245,245,247,.38);line-height:1.8;margin:0;max-width:600px;">
+        跟着我们，从零学会用 AI 写代码——<br>
+        不需要计算机背景，不需要记语法，<br>
+        只需要一个想做出来的冲动。
+      </p>
+
+      <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:center;">
+        <div style="display:flex;align-items:center;gap:8px;padding:10px 20px;border-radius:8px;background:rgba(10,132,255,.12);border:0.5px solid rgba(10,132,255,.25);">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="flex-shrink:0"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z" fill="rgba(10,132,255,.9)"/></svg>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(10,132,255,.9);letter-spacing:.06em;">关注公众号 / 小红书</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;padding:10px 20px;border-radius:8px;background:rgba(48,209,88,.08);border:0.5px solid rgba(48,209,88,.2);">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="flex-shrink:0"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" stroke="rgba(48,209,88,.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(48,209,88,.9);letter-spacing:.06em;">加入课程，下一个就是你</span>
+        </div>
+      </div>
+
+      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,.1);letter-spacing:.18em;margin-top:8px;">
+        — describe · vibe · ship —
+      </div>
+
     </div>
   `;
 });
