@@ -164,48 +164,87 @@ slide('fly', function(el) {
 slide('waterfall', function(el) {
   el.style.cssText += 'overflow-y:auto;overflow-x:hidden;scroll-snap-align:start;display:block;padding:0;';
 
-  // chatbase / phind 无法嵌入，用自定义可视化替代
-  const chatbaseViz = `
-    <div style="width:100%;height:100%;background:linear-gradient(160deg,#0d1117 0%,#0a0f1a 100%);display:flex;flex-direction:column;padding:18px;font-family:'JetBrains Mono',monospace;position:relative;overflow:hidden;">
-      <div style="font-size:9px;letter-spacing:.14em;color:#0A84FF;text-transform:uppercase;margin-bottom:10px;opacity:.7">CHATBASE · DASHBOARD</div>
-      <div style="display:flex;gap:8px;margin-bottom:12px;">
-        <div style="flex:1;background:rgba(10,132,255,.1);border:0.5px solid rgba(10,132,255,.2);border-radius:8px;padding:10px;">
-          <div style="font-size:8px;color:rgba(255,255,255,.35);margin-bottom:4px;">CONVERSATIONS</div>
-          <div style="font-size:18px;font-weight:700;color:#fff;">24,891</div>
-        </div>
-        <div style="flex:1;background:rgba(48,209,88,.08);border:0.5px solid rgba(48,209,88,.2);border-radius:8px;padding:10px;">
-          <div style="font-size:8px;color:rgba(255,255,255,.35);margin-bottom:4px;">RESOLVED</div>
-          <div style="font-size:18px;font-weight:700;color:#30D158;">91.4%</div>
-        </div>
+  /* ── Chatbase viz ── */
+  const chatbaseViz = `<div style="width:100%;height:100%;background:linear-gradient(160deg,#0d1117 0%,#0a0f1a 100%);display:flex;flex-direction:column;padding:18px;font-family:'JetBrains Mono',monospace;overflow:hidden;">
+    <div style="font-size:9px;letter-spacing:.14em;color:#0A84FF;text-transform:uppercase;margin-bottom:10px;opacity:.7">CHATBASE · DASHBOARD</div>
+    <div style="display:flex;gap:8px;margin-bottom:12px;">
+      <div style="flex:1;background:rgba(10,132,255,.1);border:0.5px solid rgba(10,132,255,.2);border-radius:8px;padding:10px;">
+        <div style="font-size:8px;color:rgba(255,255,255,.35);margin-bottom:4px;">CONVERSATIONS</div>
+        <div style="font-size:18px;font-weight:700;color:#fff;">24,891</div>
       </div>
-      <div style="flex:1;background:rgba(255,255,255,.04);border-radius:8px;padding:12px;display:flex;flex-direction:column;gap:7px;">
-        <div style="font-size:8px;color:rgba(255,255,255,.25);letter-spacing:.1em;margin-bottom:2px;">RECENT MESSAGES</div>
-        ${['如何退款？','产品有试用吗？','API 文档在哪里？','支持哪些语言？'].map((q,i)=>`
-        <div style="display:flex;align-items:center;gap:8px;opacity:${1-i*0.18}">
-          <div style="width:22px;height:22px;border-radius:50%;background:rgba(10,132,255,.2);display:flex;align-items:center;justify-content:center;font-size:9px;color:#0A84FF;flex-shrink:0;">U</div>
-          <div style="font-size:10px;color:rgba(245,245,247,.6);">${q}</div>
-          <div style="margin-left:auto;font-size:8px;padding:2px 7px;border-radius:10px;background:rgba(48,209,88,.1);color:#30D158;">已解决</div>
-        </div>`).join('')}
+      <div style="flex:1;background:rgba(48,209,88,.08);border:0.5px solid rgba(48,209,88,.2);border-radius:8px;padding:10px;">
+        <div style="font-size:8px;color:rgba(255,255,255,.35);margin-bottom:4px;">RESOLVED</div>
+        <div style="font-size:18px;font-weight:700;color:#30D158;">91.4%</div>
       </div>
-    </div>`;
+    </div>
+    <div style="flex:1;background:rgba(255,255,255,.04);border-radius:8px;padding:12px;display:flex;flex-direction:column;gap:7px;overflow:hidden;">
+      <div style="font-size:8px;color:rgba(255,255,255,.25);letter-spacing:.1em;margin-bottom:2px;">RECENT MESSAGES</div>
+      <div style="display:flex;align-items:center;gap:8px;"><div style="width:22px;height:22px;border-radius:50%;background:rgba(10,132,255,.2);display:flex;align-items:center;justify-content:center;font-size:9px;color:#0A84FF;flex-shrink:0;">U</div><div style="font-size:10px;color:rgba(245,245,247,.6);">如何退款？</div><div style="margin-left:auto;font-size:8px;padding:2px 7px;border-radius:10px;background:rgba(48,209,88,.1);color:#30D158;">已解决</div></div>
+      <div style="display:flex;align-items:center;gap:8px;opacity:.82"><div style="width:22px;height:22px;border-radius:50%;background:rgba(10,132,255,.2);display:flex;align-items:center;justify-content:center;font-size:9px;color:#0A84FF;flex-shrink:0;">U</div><div style="font-size:10px;color:rgba(245,245,247,.6);">产品有试用吗？</div><div style="margin-left:auto;font-size:8px;padding:2px 7px;border-radius:10px;background:rgba(48,209,88,.1);color:#30D158;">已解决</div></div>
+      <div style="display:flex;align-items:center;gap:8px;opacity:.65"><div style="width:22px;height:22px;border-radius:50%;background:rgba(10,132,255,.2);display:flex;align-items:center;justify-content:center;font-size:9px;color:#0A84FF;flex-shrink:0;">U</div><div style="font-size:10px;color:rgba(245,245,247,.6);">API 文档在哪里？</div><div style="margin-left:auto;font-size:8px;padding:2px 7px;border-radius:10px;background:rgba(48,209,88,.1);color:#30D158;">已解决</div></div>
+      <div style="display:flex;align-items:center;gap:8px;opacity:.48"><div style="width:22px;height:22px;border-radius:50%;background:rgba(10,132,255,.2);display:flex;align-items:center;justify-content:center;font-size:9px;color:#0A84FF;flex-shrink:0;">U</div><div style="font-size:10px;color:rgba(245,245,247,.6);">支持哪些语言？</div><div style="margin-left:auto;font-size:8px;padding:2px 7px;border-radius:10px;background:rgba(48,209,88,.1);color:#30D158;">已解决</div></div>
+    </div>
+  </div>`;
 
-  const phindViz = `
-    <div style="width:100%;height:100%;background:#09090b;display:flex;flex-direction:column;padding:18px;font-family:'JetBrains Mono',monospace;position:relative;overflow:hidden;">
-      <div style="font-size:9px;letter-spacing:.14em;color:#40C8E0;text-transform:uppercase;margin-bottom:12px;opacity:.7">PHIND · AI SEARCH</div>
-      <div style="background:rgba(255,255,255,.05);border:0.5px solid rgba(255,255,255,.1);border-radius:8px;padding:10px 12px;margin-bottom:12px;display:flex;align-items:center;gap:8px;">
-        <span style="font-size:11px;color:rgba(255,255,255,.2);">⌕</span>
-        <span style="font-size:11px;color:rgba(245,245,247,.5);">How to implement RAG with LangChain?</span>
-        <span style="margin-left:auto;width:16px;height:16px;background:#40C8E0;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:9px;color:#000;">↵</span>
+  /* ── Phind viz ── */
+  const phindViz = `<div style="width:100%;height:100%;background:#09090b;display:flex;flex-direction:column;padding:18px;font-family:'JetBrains Mono',monospace;overflow:hidden;">
+    <div style="font-size:9px;letter-spacing:.14em;color:#40C8E0;text-transform:uppercase;margin-bottom:12px;opacity:.7">PHIND · AI SEARCH</div>
+    <div style="background:rgba(255,255,255,.05);border:0.5px solid rgba(255,255,255,.1);border-radius:8px;padding:10px 12px;margin-bottom:12px;display:flex;align-items:center;gap:8px;">
+      <span style="font-size:11px;color:rgba(255,255,255,.2);">⌕</span>
+      <span style="font-size:11px;color:rgba(245,245,247,.5);">How to implement RAG with LangChain?</span>
+      <span style="margin-left:auto;width:16px;height:16px;background:#40C8E0;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:9px;color:#000;">↵</span>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;gap:8px;overflow:hidden;">
+      <div style="font-size:9px;color:rgba(255,255,255,.25);letter-spacing:.08em;">ANSWER</div>
+      <div style="font-size:10px;color:rgba(245,245,247,.55);line-height:1.7;">RAG (Retrieval-Augmented Generation) combines document retrieval with LLM generation...</div>
+      <div style="background:rgba(64,200,224,.06);border:0.5px solid rgba(64,200,224,.15);border-radius:6px;padding:10px;">
+        <div style="font-size:8px;color:#40C8E0;margin-bottom:6px;letter-spacing:.08em;">PYTHON</div>
+        <div style="font-size:10px;color:rgba(245,245,247,.7);line-height:1.7;"><span style="color:#BF5AF2">from</span> langchain <span style="color:#BF5AF2">import</span> RetrievalQA<br><span style="color:#BF5AF2">from</span> langchain.vectorstores <span style="color:#BF5AF2">import</span> Chroma</div>
       </div>
-      <div style="flex:1;display:flex;flex-direction:column;gap:8px;overflow:hidden;">
-        <div style="font-size:9px;color:rgba(255,255,255,.25);letter-spacing:.08em;">ANSWER</div>
-        <div style="font-size:10px;color:rgba(245,245,247,.55);line-height:1.7;">RAG (Retrieval-Augmented Generation) combines document retrieval with LLM generation...</div>
-        <div style="background:rgba(64,200,224,.06);border:0.5px solid rgba(64,200,224,.15);border-radius:6px;padding:10px;">
-          <div style="font-size:8px;color:#40C8E0;margin-bottom:6px;letter-spacing:.08em;">PYTHON</div>
-          <div style="font-size:10px;color:rgba(245,245,247,.7);line-height:1.7;"><span style="color:#BF5AF2">from</span> langchain <span style="color:#BF5AF2">import</span> RetrievalQA<br><span style="color:#BF5AF2">from</span> langchain.vectorstores <span style="color:#BF5AF2">import</span> Chroma</div>
-        </div>
+    </div>
+  </div>`;
+
+  /* ── NomadList viz ── */
+  const nomadViz = `<div style="width:100%;height:100%;background:#0b0f0d;display:flex;flex-direction:column;padding:18px;font-family:'JetBrains Mono',monospace;overflow:hidden;">
+    <div style="font-size:9px;letter-spacing:.14em;color:#30D158;text-transform:uppercase;margin-bottom:12px;opacity:.7">NOMADLIST · CITY RANKING</div>
+    <div style="display:flex;flex-direction:column;gap:6px;flex:1;overflow:hidden;">
+      ${[
+        ['#1','Chiang Mai','🇹🇭','$1,200/mo','⭐ 4.9'],
+        ['#2','Lisbon','🇵🇹','$2,100/mo','⭐ 4.8'],
+        ['#3','Medellín','🇨🇴','$1,050/mo','⭐ 4.7'],
+        ['#4','Bali','🇮🇩','$900/mo','⭐ 4.7'],
+        ['#5','Mexico City','🇲🇽','$1,400/mo','⭐ 4.6'],
+      ].map(([rank,city,flag,cost,score])=>`
+      <div style="display:flex;align-items:center;gap:10px;background:rgba(48,209,88,.04);border:0.5px solid rgba(48,209,88,.1);border-radius:8px;padding:8px 12px;">
+        <div style="font-size:9px;color:rgba(48,209,88,.4);width:18px;">${rank}</div>
+        <div style="font-size:16px;">${flag}</div>
+        <div style="flex:1;font-size:11px;color:rgba(245,245,247,.8);">${city}</div>
+        <div style="font-size:9px;color:rgba(255,255,255,.3);">${cost}</div>
+        <div style="font-size:9px;color:#30D158;">${score}</div>
+      </div>`).join('')}
+    </div>
+  </div>`;
+
+  /* ── Supermeme viz ── */
+  const supermemeViz = `<div style="width:100%;height:100%;background:#0f0a14;display:flex;flex-direction:column;padding:18px;font-family:'JetBrains Mono',monospace;overflow:hidden;">
+    <div style="font-size:9px;letter-spacing:.14em;color:#BF5AF2;text-transform:uppercase;margin-bottom:12px;opacity:.7">SUPERMEME · AI MEME GEN</div>
+    <div style="background:rgba(191,90,242,.06);border:0.5px solid rgba(191,90,242,.15);border-radius:10px;padding:12px;margin-bottom:10px;">
+      <div style="font-size:9px;color:rgba(255,255,255,.3);margin-bottom:6px;">INPUT</div>
+      <div style="font-size:11px;color:rgba(245,245,247,.7);">"When your vibe-coded app makes $1M ARR"</div>
+    </div>
+    <div style="flex:1;display:grid;grid-template-columns:1fr 1fr;gap:8px;overflow:hidden;">
+      <div style="background:rgba(255,255,255,.05);border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px;gap:6px;">
+        <div style="font-size:24px;">🧠</div>
+        <div style="font-size:9px;color:rgba(255,255,255,.4);text-align:center;line-height:1.5;">Big brain time</div>
+        <div style="font-size:8px;padding:2px 7px;border-radius:10px;background:rgba(191,90,242,.15);color:#BF5AF2;">选中</div>
       </div>
-    </div>`;
+      <div style="background:rgba(255,255,255,.03);border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px;gap:6px;">
+        <div style="font-size:24px;">🤑</div>
+        <div style="font-size:9px;color:rgba(255,255,255,.4);text-align:center;line-height:1.5;">Money printer go brr</div>
+      </div>
+    </div>
+  </div>`;
+
 
   el.innerHTML = `
   <style>
@@ -372,7 +411,7 @@ slide('waterfall', function(el) {
       <!-- 5. NomadList -->
       <div class="wf-card cat-comm">
         <div class="wf-preview r-t">
-          <iframe src="https://nomadlist.com" loading="lazy"></iframe>
+          <div class="wf-viz">${nomadViz}</div>
           <span class="wf-badge">社区</span>
         </div>
         <div class="wf-body">
@@ -498,7 +537,7 @@ slide('waterfall', function(el) {
       <!-- 14. Supermeme -->
       <div class="wf-card cat-fun">
         <div class="wf-preview r-s">
-          <iframe src="https://supermeme.ai" loading="lazy"></iframe>
+          <div class="wf-viz">${supermemeViz}</div>
           <span class="wf-badge">趣味</span>
         </div>
         <div class="wf-body">
