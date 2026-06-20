@@ -245,6 +245,65 @@ slide('waterfall', function(el) {
     </div>
   </div>`;
 
+  /* ── Gamma viz ── */
+  const gammaViz = `<div style="width:100%;height:100%;background:linear-gradient(135deg,#0f1117 0%,#12101a 100%);display:flex;flex-direction:column;padding:18px;font-family:'JetBrains Mono',monospace;overflow:hidden;">
+    <div style="font-size:9px;letter-spacing:.14em;color:#7C5CBF;text-transform:uppercase;margin-bottom:14px;opacity:.8">GAMMA · AI PRESENTATION</div>
+    <div style="background:rgba(124,92,191,.08);border:0.5px solid rgba(124,92,191,.2);border-radius:10px;padding:12px 14px;margin-bottom:10px;display:flex;align-items:center;gap:10px;">
+      <div style="flex:1;">
+        <div style="font-size:9px;color:rgba(255,255,255,.3);margin-bottom:5px;">PROMPT</div>
+        <div style="font-size:11px;color:rgba(245,245,247,.7);">介绍 Vibe Coding 对独立开发的影响</div>
+      </div>
+      <div style="padding:6px 12px;background:#7C5CBF;border-radius:6px;font-size:9px;color:#fff;white-space:nowrap;">生成 →</div>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;gap:8px;overflow:hidden;">
+      <div style="font-size:9px;color:rgba(255,255,255,.2);letter-spacing:.1em;">SLIDES PREVIEW</div>
+      <div style="display:flex;gap:7px;overflow:hidden;">
+        <div style="flex:1;min-width:0;background:rgba(124,92,191,.12);border:0.5px solid rgba(124,92,191,.2);border-radius:7px;padding:10px;">
+          <div style="font-size:8px;color:#7C5CBF;margin-bottom:5px;">01</div>
+          <div style="font-size:10px;color:rgba(245,245,247,.7);line-height:1.4;">什么是<br>Vibe Coding?</div>
+        </div>
+        <div style="flex:1;min-width:0;background:rgba(124,92,191,.07);border:0.5px solid rgba(124,92,191,.12);border-radius:7px;padding:10px;">
+          <div style="font-size:8px;color:rgba(124,92,191,.6);margin-bottom:5px;">02</div>
+          <div style="font-size:10px;color:rgba(245,245,247,.45);line-height:1.4;">工具链<br>演进史</div>
+        </div>
+        <div style="flex:1;min-width:0;background:rgba(124,92,191,.07);border:0.5px solid rgba(124,92,191,.12);border-radius:7px;padding:10px;">
+          <div style="font-size:8px;color:rgba(124,92,191,.6);margin-bottom:5px;">03</div>
+          <div style="font-size:10px;color:rgba(245,245,247,.45);line-height:1.4;">真实<br>案例</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;margin-top:2px;">
+        <div style="width:6px;height:6px;border-radius:50%;background:#7C5CBF;"></div>
+        <div style="font-size:9px;color:rgba(255,255,255,.25);">AI 已生成 12 张幻灯片 · 点击编辑</div>
+      </div>
+    </div>
+  </div>`;
+
+  /* ── Cursor Stats viz ── */
+  const cursorStatsViz = `<div style="width:100%;height:100%;background:#0a0c0f;display:flex;flex-direction:column;padding:16px;font-family:'JetBrains Mono',monospace;overflow:hidden;">
+    <div style="font-size:9px;letter-spacing:.14em;color:#40C8E0;text-transform:uppercase;margin-bottom:12px;opacity:.7">CURSOR STATS · TOKEN TRACKER</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:10px;">
+      <div style="background:rgba(64,200,224,.07);border:0.5px solid rgba(64,200,224,.15);border-radius:7px;padding:9px;">
+        <div style="font-size:8px;color:rgba(255,255,255,.3);margin-bottom:3px;">TODAY</div>
+        <div style="font-size:16px;font-weight:700;color:#40C8E0;">284K</div>
+        <div style="font-size:8px;color:rgba(255,255,255,.2);margin-top:1px;">tokens used</div>
+      </div>
+      <div style="background:rgba(255,159,10,.06);border:0.5px solid rgba(255,159,10,.15);border-radius:7px;padding:9px;">
+        <div style="font-size:8px;color:rgba(255,255,255,.3);margin-bottom:3px;">REMAINING</div>
+        <div style="font-size:16px;font-weight:700;color:#FF9F0A;">716K</div>
+        <div style="font-size:8px;color:rgba(255,255,255,.2);margin-top:1px;">/ 1M limit</div>
+      </div>
+    </div>
+    <div style="flex:1;background:rgba(255,255,255,.03);border-radius:8px;padding:10px;display:flex;flex-direction:column;gap:5px;overflow:hidden;">
+      <div style="font-size:8px;color:rgba(255,255,255,.2);letter-spacing:.08em;margin-bottom:3px;">RECENT SESSIONS</div>
+      ${[['claude-sonnet','124K','2m ago'],['gpt-4o','89K','18m ago'],['claude-sonnet','71K','1h ago']].map(([model,tok,time])=>`
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div style="font-size:9px;color:rgba(64,200,224,.7);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${model}</div>
+        <div style="font-size:9px;color:rgba(245,245,247,.5);">${tok}</div>
+        <div style="font-size:8px;color:rgba(255,255,255,.2);">${time}</div>
+      </div>`).join('')}
+    </div>
+  </div>`;
+
 
   el.innerHTML = `
   <style>
@@ -369,7 +428,7 @@ slide('waterfall', function(el) {
       <!-- 2. Gamma -->
       <div class="wf-card cat-saas">
         <div class="wf-preview r-t">
-          <iframe src="https://gamma.app" loading="lazy"></iframe>
+          <div class="wf-viz">${gammaViz}</div>
           <span class="wf-badge">SaaS</span>
         </div>
         <div class="wf-body">
@@ -565,7 +624,7 @@ slide('waterfall', function(el) {
       <!-- 16. Cursor Stats (Chrome Store) -->
       <div class="wf-card cat-dev">
         <div class="wf-preview r-s">
-          <iframe src="https://cursorstats.com" loading="lazy"></iframe>
+          <div class="wf-viz">${cursorStatsViz}</div>
           <span class="wf-badge">开发工具</span>
         </div>
         <div class="wf-body">
